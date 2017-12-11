@@ -134,7 +134,7 @@ func (s *Resolver) ResolvePathComponents(ctx context.Context, fpath Path) (nodes
 	eip := log.EventBegin(ctx, "ResolvePathComponents")
 	defer func() {
 		eip.Append(logging.LoggableMap{"path": fpath.String()})
-		eip.Done(err)
+		eip.DoneWithErr(err)
 	}()
 	h, parts, err := SplitAbsPath(fpath)
 	if err != nil {
@@ -161,7 +161,7 @@ func (s *Resolver) ResolveLinks(ctx context.Context, ndd node.Node, names []stri
 	eip := log.EventBegin(ctx, "ResolveLinks")
 	defer func() {
 		eip.Append(logging.LoggableMap{"names": names})
-		eip.Done(err)
+		eip.DoneWithErr(err)
 	}()
 	nodes = make([]node.Node, 0, len(names)+1)
 	nodes = append(nodes, ndd)

@@ -25,7 +25,7 @@ func Resolve(ctx context.Context, nsys namesys.NameSystem, r *path.Resolver, p p
 	eip := log.EventBegin(ctx, "Resolve")
 	defer func() {
 		eip.Append(logging.LoggableMap{"path": p.String()})
-		eip.Done(err)
+		eip.DoneWithErr(err)
 	}()
 	if strings.HasPrefix(p.String(), "/ipns/") {
 		// resolve ipns paths
