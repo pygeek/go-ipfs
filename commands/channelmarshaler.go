@@ -13,6 +13,11 @@ type ChannelMarshaler struct {
 }
 
 func (cr *ChannelMarshaler) Read(p []byte) (int, error) {
+	// Check to make sure we haven't already set an error. If we have, bail
+	// without reading from the channel.
+	if cr.Res.Error() != nil {
+		return 0, cr.Res.Error()
+	}
 	if cr.reader == nil {
 		val, more := <-cr.Channel
 		if !more {
